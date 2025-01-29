@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<!-- Mirrored from ghkart.com/checkout by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 27 Jan 2025 17:26:43 GMT -->
+<head>
+        <title>Checkout | PeecompukGh.com</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+        <meta name="X-UA-Compatible" content="IE=edge"/>
+		<link rel="icon" type="image/png" href="img/site/gh-fv.png"/>
+        <link rel="stylesheet" type="text/css" href="css/font.css"/>
+        <link rel="stylesheet" type="text/css" href="fonts/icons/icomoon/styles.css"/>
+        <link rel="stylesheet" type="text/css" href="fonts/icons/lnr/styles.css"/>
+        <link rel="stylesheet" type="text/css" href="css/stable.css"/>
+        <link rel="stylesheet" type="text/css" href="css/general.css"/>
+        <link rel="stylesheet" type="text/css" href="css/site.css"/>
+		<link rel="stylesheet" type="text/css" href="css/aside-menu.css"/>
+		<link rel="stylesheet" type="text/css" href="css/account.css"/>
+        <link rel="stylesheet" type="text/css" href="css/checkout.css"/>
+		<link rel="stylesheet" type="text/css" href="css/site_responsive.css"/>
+        <link rel="stylesheet" type="text/css" href="css/slider.css"/>
+        
+        <style type="text/css">
+			.info, .success, .warning, .error, .validation {
+				border: 1px solid;
+				margin: 10px 0px 0px 0px;
+				padding:15px 10px 15px 50px;
+				background-repeat: no-repeat;
+				background-position: 10px center;
+			}
+			.info {
+				color: #00529B;
+				background-color: #BDE5F8;
+				/*background-image: url('../images/info.png');*/
+				text-align:center;
+				border-top-right-radius:15px;
+				border-top-left-radius:15px;
+			}
+			.success {
+				color: #4F8A10;
+				background-color: #DFF2BF;
+				background-image:url('img/success.png');
+			}
+			.warning {
+				color: #9F6000;
+				background-color: #FEEFB3;
+				background-image: url('img/warning.html');
+			}
+			.error {
+				color: #D8000C;
+				background-color: #FFBABA;
+				/*background-image: url('img/exit.png');*/
+			}
+		</style>
+        
+        <script>
+		
+		  	function getstep(url,responseDivId,idd,editID,callBack) {
+				$.ajax({
+					type: "POST",
+					url: url,
+					data: $('form').serialize()+"&id="+idd+'&editID='+editID+'&callBack='+callBack,
+					success: function(msg){
+						//alert(msg);
+						//return false;
+						document.getElementById(responseDivId).innerHTML=msg;
+					}
+				});
+			}
+			
+			function getstep2(form,url,responseDivId,idd,editID,callBack) {
+				$.ajax({
+					type: "POST",
+					url: url,
+					data: $(form).serialize()+"&id="+idd+'&editID='+editID+'&callBack='+callBack,
+					success: function(msg){
+						//alert(msg);
+						//return false;
+						document.getElementById(responseDivId).innerHTML=msg;
+						//return callBack;
+					}
+				});
+			}
+			
+			function redirectPost(url,idd,editID,callBack) {
+				$.ajax({
+					type: "POST",
+					url: url,
+					data: $('form').serialize()+"&id="+idd+'&editID='+editID+'&callBack='+callBack,
+					success: function(msg){
+						//alert(msg);
+						//return false;
+						document.location = url;
+						//window.location = url;
+					}
+				});
+			}
+			
+			function showHide(parent, selected, show_hide) {	
+				var list = document.getElementById(parent);
+				var idValue=list.options[list.selectedIndex].value;
+				
+				if(idValue==selected){
+					for (i=0; i<show_hide.length; i++){
+						document.getElementById(show_hide[i]).style.display = "block";
+					}
+				}else{
+					for (i=0; i<show_hide.length; i++){
+						document.getElementById(show_hide[i]).style.display = "none";
+					}
+				}
+				return;
+			}
+			
+			
+			function show(show_Id) {	
+				for (i=0; i<show_Id.length; i++){
+					document.getElementById(show_Id[i]).style.display = "block";
+				}
+				return;
+			}
+			
+			
+			function hide(hide_Id) {	
+				for (i=0; i<hide_Id.length; i++){
+					document.getElementById(hide_Id[i]).style.display = "none";
+				}
+				return;
+			}
+			
+			
+			function openPopUp(show_Id) {
+				document.getElementById(show_Id).style.display = "block";
+			}
+			
+			
+			function closePopUp(hide_Id) {
+				document.getElementById(hide_Id).style.display = "none";
+			}
+			
+			
+			function validateOrderForms() {
+				if(document.getElementById('customer').checked === true && document.getElementById('First_Name').value == '' && document.getElementById('Username').value == '' && document.getElementById('password').value == ''){
+					alert('Please enter your First Name, Username, and Password! Or select Checkout as Guest to proceed.');
+					document.getElementById('check').click();
+					return false;
+				}else if(document.getElementById('Select_Address').value == ''){
+					alert('Please select your Delivery Address!');
+					document.getElementById('bill').click();
+					return false;
+				}else{
+					return true;
+				}
+			}
+			
+			
+			function current_opac(id){
+				/*document.getElementById("apDiv1").style.display = "none";
+				document.getElementById("apDiv2").style.display = "none";*/	
+				document.getElementById('apDiv'+id).style.display = "none";
+			}
+			function current_show(id){
+				/*document.getElementById("apDiv1").style.display = "block";
+				document.getElementById("apDiv2").style.display = "block";*/
+				document.getElementById('apDiv'+id).style.display = "block";
+			}
+			
+			function ajaxloadindiv(actstep,responseDivId,idd,editID,callBackFunction,params) {
+				current_show(idd);			
+				$.ajax({
+					type: "POST",
+					url: "includes/links.php",
+					data: $('form').serialize()+"&act="+actstep+"&id="+idd+"&editID="+editID,
+					success: function(msg){
+						document.getElementById(responseDivId).innerHTML=msg;
+						//callBackFunction;
+						//document.getElementById('searchtext_invoice').focus();
+						//alert(callBackFunction);
+						//document.getElementById('searchtext_invoice').value = document.getElementById('searchtext_invoice').value;
+						current_opac(idd);
+						//ShowOptionContainer();
+					}
+				});
+			}
+			
+	   	</script>
+        
+    </head>
+    <body>
+        <div class="container">
+            <div class="wrapper">
+
+                <!-- Please do not touch this div. Is there to correct fix position on the header. -->
+                <div class="jonkey-hfix-pos"></div>
+
+                
+
+
+                <header class="grid-box top-header-container" id="first_header">
+                    <div class="grid-box-content flex-division fd-2 fft">
+                        <div class="txt-al items-margin-right stopprop" ontouchstart="elemTouchStartY(this,event);" ontouchmove="elemTouchMoveY(this,event);">
+                        
+                                                
+                        <form action="https://ghkart.com/checkout" method="post">
+                            <small class="first-header-hdi-item">Hi &nbsp; &#0149;</small>
+                            <small class="b">
+								<a class="df td-underline account-div drop-btn account-dbtn pcur">
+									Log In <i class="icon-arrow-down5"></i> <!--&nbsp; &#0149;--> 
+									<div class="account-div-container prev-mm drop-child-item hiddible closer-parent">
+										<h4 class="tip clearfix"><span>LOG IN &#0149;</span><small class="-fright- pcur"><i class="m-over icon-cross2 closer-btn account-closer"></i></small><br><small class="tip">Enter the Username or Email address you created an account with and your account's password.</small></h4>
+										<div class="">
+											<input type="text" name="login_email" required placeholder="Username or Email" />
+											<input type="password" name="login_password" required placeholder="Password" />
+										</div>
+										<!--<br>-->
+										<!--<div class="account-state success">Successfully logged in.</div>-->
+										<div class="">
+											<button type="submit" name="cust_login_btn" class="">LOG IN</button>
+										</div>
+										<div class="line-sep"></div>
+										<h4>New member? <span class="tip td-underline pcur site-link-btn td-underline" data-target="_self" data-href="signup">Sign Up</span><br><small>It's fast and easy</small></h4>
+									</div>
+                                </a>
+                                &nbsp; &#0149;
+                            </small>
+                            <small><a href="signup.html" class="df td-underline">Sign Up</a></small>
+                            <!--<small class="first-header-hdi-item"><a href="help-support" class="td-underline">Help & Contact</a></small>-->
+                        </form>
+                        
+                                                
+                        </div>
+                        <div class="txt-ar items-margin-left">
+                            <a href="cart.html" class="ntf cart-hdi">
+                                <i class="lnr lnr-cart"></i>
+                                <small class="ntf-item">0</small>
+                            </a>
+							<small class="hode" style="cursor:pointer;" onclick="javascript: window.location='pages.html?p=35';"><i class="icon-phone2"></i> &nbsp;(+233)(0)260 007 070, 0302 725 878</small>
+							<!--<small class="pcur hode toggle-chat-btn" data-chat-state="hidden"><i class="icon-bubble9"></i> &nbsp;Live chat</small>-->
+							<a href="cart.html" class="hode shopping-cart-max">
+								<div>
+									<div><h4>SHOPPING CART</h4><span>0 Items</span> &#0149; <span>GH&#162; 0</span></div>
+									<div>
+										&nbsp;&nbsp;&nbsp;
+										<span href="cart.html" class="ntf">
+											<i class="lnr lnr-cart"></i>
+											<small class="ntf-item">0</small>
+										</span>
+									</div>
+								</div>
+							</a>
+                        </div>
+                    </div>
+                </header>
+
+                <header class="grid-box top-header-container-two" id="second_header">
+                    <div class="grid-box-content flex-division acc-items">
+                        <div>
+                            <a href="index.html">
+                            	<!--<img alt="" src="./img/site/logo2.png" class="vert-mid">-->
+                                <img alt="" src="ghkart-admin/views/site_links_pages/ajax_image/site_links_pages_pictures/logo2_2020_04_07_01_09_16.png" class="vert-mid">
+                            </a>
+                            <span>
+                                <a href="cart.html" class="ntf cart-hdi o-ntf">
+                                    <i class="lnr lnr-cart"></i>
+                                    <small class="ntf-item">0</small>
+                                </a>
+                                &nbsp;
+                                <span class="header-hiden-menu-btn show-pam">
+                                    <i class="icon-menu7"></i>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="top-header-search-box flex-division">
+                            <div class="flex-division acc-items top-search-ccitem">
+                            
+                                <span class="all-cats pcur">
+                                    <span class="top-cat-btn drop-btn dnext dfx">
+                                        <i class="icon-arrow-down32"></i>
+                                        <span class="top-category-text">&nbsp;All categories
+										</span>
+                                    </span>
+                                    <div class="category-div flex-division drop-child-item hiddible closer-parent stopprop" ontouchstart="elemTouchStartY(this,event);" ontouchmove="elemTouchMoveY(this,event);">
+                                        <div class="item-cnt ic-menu flex-division jcc-sbtw">
+                                            <div>
+                                                <h3>
+                                                    <i class="icon-menu7"></i>
+                                                    CATEGORIES
+                                                </h3>
+                                            </div>
+                                            <div class="closer-btn">
+                                                <i class="icon-cross2"></i>
+                                            </div>
+                                        </div><div class="item-cnt">
+						<h3 class="select-s-cat-btn" data-cat-id="55">
+							Hot Deals <i class="icon-arrow-right15"></i>
+						</h3>
+						<ul></ul>
+           </div><div class="item-cnt">
+						<h3 class="select-s-cat-btn" data-cat-id="5">
+							Apple Systems <i class="icon-arrow-right15"></i>
+						</h3>
+						<ul></ul>
+           </div><div class="item-cnt">
+						<h3 class="select-s-cat-btn" data-cat-id="13">
+							Laptops & Tablets <i class="icon-arrow-right15"></i>
+						</h3>
+						<ul><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="4">Gaming laptops</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="58">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Asus Gaming</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="59">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - MSI</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="60">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Alienware</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="61">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Razer</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="145">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Dell Gaming</a>
+						  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="111">Home & Office</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="14">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Acer & Asus</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="18">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Dell</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="19">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - HP</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="20">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Lenovo</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="21">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Toshiba & Fujitsu</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="34">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Microsoft & Samsung</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="99">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Other Brands</a>
+						  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="114">Tablets</a>
+					  </li></ul>
+           </div><div class="item-cnt">
+						<h3 class="select-s-cat-btn" data-cat-id="110">
+							Desktops & Monitors <i class="icon-arrow-right15"></i>
+						</h3>
+						<ul><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="115">Desktop Computers</a>
+					  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="116">Monitors</a>
+					  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="117">All-In-One</a>
+					  </li></ul>
+           </div><div class="item-cnt">
+						<h3 class="select-s-cat-btn" data-cat-id="32">
+							Computer Accessories <i class="icon-arrow-right15"></i>
+						</h3>
+						<ul><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="39">keyboard & Mouse</a>
+					  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="40">Headset & speaker</a>
+					  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="42">Memory cards</a>
+					  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="43">Laptop chargers</a>
+					  </li></ul>
+           </div><div class="item-cnt">
+						<h3 class="select-s-cat-btn" data-cat-id="10">
+							Components & Parts <i class="icon-arrow-right15"></i>
+						</h3>
+						<ul><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="52">Laptop screen</a>
+					  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="53">Internal storage</a>
+					  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="54">Laptop batteries</a>
+					  </li></ul>
+           </div><div class="item-cnt">
+						<h3 class="select-s-cat-btn" data-cat-id="118">
+							CCTV & Accessories <i class="icon-arrow-right15"></i>
+						</h3>
+						<ul><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="121">CCTV Cameras</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="126">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - IP Cameras</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="127">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Analog Cameras</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="129">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Hidden & Spy</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="130">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - PTZ Cameras</a>
+						  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="122">Video Recorders</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="167">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - DVR Systems</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="168">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - NVR Systems</a>
+						  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="123">CCTV Accessories</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="131">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Cables</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="132">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - HDMI & VGA</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="146">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Power Suppliers</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="149">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - POE & Multiplexers</a>
+						  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="124">Tools & Others</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="148">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Storage</a>
+						  </li></ul>
+           </div><div class="item-cnt">
+						<h3 class="select-s-cat-btn" data-cat-id="119">
+							Access Control & Biometrics <i class="icon-arrow-right15"></i>
+						</h3>
+						<ul><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="133">Access Control</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="142">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Access Control Devices</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="143">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Power Suppliers</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="144">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Exit Button & Switches</a>
+						  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="134">Door Locks</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="139">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Biometric Door Lock</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="140">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Door Loops & Closers</a>
+						  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="135">Time & Attendance</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="136">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Biometric Attendance</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="138">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Visitor Management</a>
+						  </li></ul>
+           </div><div class="item-cnt">
+						<h3 class="select-s-cat-btn" data-cat-id="120">
+							Safety & Automation <i class="icon-arrow-right15"></i>
+						</h3>
+						<ul><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="150">Fence Automation</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="153">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Razer Barbed Automation</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="154">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Electric Line Fence</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="155">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Fence Accessories</a>
+						  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="151">Gate Automation</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="156">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Electric Dead Locks</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="157">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Remote Gate Controller</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="158">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Automation Accessories</a>
+						  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="152">Car Security Systems</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="161">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Gps/Gsm Track & Alarm</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="163">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Keyless Entry & Tailgate</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="164">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Video & Camera System</a>
+						  </li></ul>
+           </div><div class="item-cnt">
+						<h3 class="select-s-cat-btn" data-cat-id="94">
+							Drones, Wearables & Others <i class="icon-arrow-right15"></i>
+						</h3>
+						<ul><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="93">Games & Others</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="96">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - AR Game Guns</a>
+						  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="112">Drones & Accessories</a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="50">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Drones & aerials</a>
+						  </li><li>
+						<a class="scnd select-s-cat-btn" data-cat-id="113">Wearables </a>
+					  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="56">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Smart Watches</a>
+						  </li><li>
+							<a class="scnd select-s-cat-btn" data-cat-id="57">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Fitness & Gadgets</a>
+						  </li></ul>
+           </div><div class="category-more">
+				<p class="txt-ar">
+					<a class="select-s-cat-btn" data-cat-id="0"><i class="icon-list"></i> &nbsp; All categories</a>
+					&nbsp;&nbsp;&nbsp;
+					<a href="search.html"><i class="icon-search4"></i> &nbsp; Advanced search</a>
+				</p>
+			</div>
+		</div>
+	</span>                                
+                                <input type="text" id="main_search_input_item" placeholder="Search for anything" value=""/>
+                            </div>
+                            <div>
+                                <form action="https://ghkart.com/search">
+									<input class="top-cat-sval" name="cat" type="hidden" value="0"/>
+									<input class="top-src-sval" name="q" type="hidden" value=""/>
+									<button class="pcur">
+										<i class="lnr lnr-magnifier"></i>
+										<span class="top-search-text">&nbsp;Search</span>
+									</button>
+								</form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-box-content o-menu clearfix">
+                        <div class="clearfix">
+                            <div>
+                                <i class="icon-arrow-left22"></i>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <a href="index.html">
+                                            <i class="lnr lnr-home"></i>
+                                            &nbsp;Home
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html">
+                                            <i class="lnr lnr-gift"></i>
+                                            &nbsp;Shop
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="search.html">
+                                            <i class="lnr lnr-magnifier"></i>
+                                            &nbsp;Search
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="cart.html">
+                                            <i class="lnr lnr-cart"></i>
+                                            &nbsp;Cart<!--(12)-->
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="login.html">
+                                            <i class="lnr lnr-user"></i>
+                                            &nbsp;My account
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="checkout.html">
+                                            <i class="lnr lnr-enter"></i>
+                                            &nbsp;Checkout
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="login.html">
+                                            <i class="lnr lnr-hand"></i>
+                                            &nbsp;My orders
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="wishlist.html">
+                                            <i class="lnr lnr-heart"></i>
+                                            &nbsp;Wishlist
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <i class="icon-arrow-right22"></i>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <header class="grid-box top-header-container-three" id="third_header">
+                    <div class="grid-box-content flex-division acc-items spscr-hi">
+                        <ul>
+                            <li><a href="index.html"><i class="lnr lnr-home"></i> &nbsp; Home</a></li>
+                            <li><a href="shop.html"><i class="lnr lnr-gift"></i> &nbsp; Shop</a></li>
+                            <li><a href="search.html"><i class="lnr lnr-magnifier"></i> &nbsp; Search</a></li>
+                            <li><a href="cart.html"><i class="lnr lnr-cart"></i> &nbsp; Cart<!--(12)--></a></li>
+                            <li><a href="login.html"><i class="lnr lnr-user"></i> &nbsp; My account</a></li>
+                            <li><a href="checkout.html"><i class="lnr lnr-enter"></i> &nbsp; Checkout</a></li>
+                            <li><a href="login.html"><i class="lnr lnr-hand"></i> &nbsp; My orders</a></li>
+							<li><a href="wishlist.html"><i class="lnr lnr-heart"></i> &nbsp; Wishlist</a></li>
+                        </ul>
+                    </div>
+                </header>				
+				<nav class="grid-box pnav">
+					<div class="grid-box-content">
+						<small>
+							<b>
+								<a href="index.html" class="cb"><i class="icon-arrow-left32"></i> &nbsp; <i class="icon-home4"></i> &nbsp; Back </a>
+								<a>&nbsp; &#0149; &nbsp;</a>
+								<a>You are at : &nbsp;</a>
+								<a href="index.html" class="cb">PeecompukGh.com</a>
+								<a>&nbsp; <i class="icon-arrow-right32"></i> &nbsp;</a>
+								<a href="checkout.html" class="cb">Checkout</a>
+							</b>
+						</small>
+					</div>
+				</nav>
+				
+				<section class="grid-box checkout-container">
+					<div class="grid-box-content">
+                    
+                    	<div class="check-out-stages">
+                        	<div>
+                        	                        	</div>
+                        </div>
+                        
+						<div class="check-out-stages flex-division">
+                           							<div class="separator"></div>
+							<div class="count-btn cb-1 count active pcur" data-cb=".cb-1" data-container-id="#count_1">1</div>
+							<div class="separator"></div>
+							<div class="count-btn cb-2 count pcur" data-cb=".cb-2" data-container-id="#count_2">2</div>
+							<div class="separator"></div>
+							<!--<div class="count-btn cb-3 count pcur" data-cb=".cb-3" data-container-id="#count_3" onClick="javascript: if( document.getElementById('Select_Address').value=='' && document.getElementById('Select_Address2').value=='' ){ alert('Please you must select and Save a Delivery Address before you choose payment option! Click on Step 2 to do so.'); document.getElementById('del_addr').click(); return false; }">3</div>
+							<div class="separator"></div>-->
+							<div class="count-btn cb-4 count pcur" data-cb=".cb-4" data-container-id="#count_4" id="pay_opt">3<!--4--></div>
+							<div class="separator"></div>
+                           						</div>
+						<div class="check-out-container">
+							<div class="count-container active" id="count_1">
+                               								<div class="flex-division jcc-sbtw">
+									<div><h2>CHECKOUT METHODS</h2></div>
+									<div class="pcur nbtn count-btn" data-cb=".cb-2" data-container-id="#count_2">NEXT <i class="icon-arrow-right32"></i></div>
+								</div>
+                               								<div>
+                                
+                                	                                
+                                	                                
+                                	                                
+									<h4>Checkout as a guest or register<br><small class="tip">Register with us for future convenience</small></h4>
+									<br>
+									<!--<div class=""><span class="reg-option-btn active cur" data-reg=".guest">1. Checkout as Guest</span><span>&nbsp; <i class="icon-arrow-right32"></i> &nbsp;</span><a class="reg-option-btn cur" data-reg=".register">2. Register | Login</span><span>&nbsp; <i class="icon-arrow-right32"></i> &nbsp;</a></div>-->
+                                    <div class=""><span class="reg-option-btn active cur" data-reg=".guest" onclick="javascript: document.getElementById('del_addr').click(); document.getElementById('add-new-address').click(); return false;"><img src="img/guest_checkout.jpg" width="214" height="66" /><!--1. Checkout as Guest--></span><span>&nbsp; <!--<i class="icon-arrow-right32"></i>--> &nbsp;</span><span><a class="reg-option-btn cur" data-reg=".register"><img src="img/login_register_checkout.jpg" width="214" height="66" /><!--2. Register | Login--></a></span><span>&nbsp; <!--<i class="icon-arrow-right32"></i>--> &nbsp;</span></div>
+									<div class="reg-cnt guest active">
+										<p>Register and save time!<br> Register with us for future convenience.<br> Fast and easy checkout.<br> Easy access to your order history and status</p>
+									</div>
+									<div class="reg-cnt register">
+										<div class="reg-header flex-division"><h1 class="atitle txc"><strong>peecompukgh<mark>.com</mark></strong></h1></div>
+										<div class="regi-cnt flex-division">
+											<div>
+												<section class="grid-box account-box">
+													<div class="grid-box-content">
+                                                    <form action="https://ghkart.com/checkout" name="form2" id="form2" method="post">
+														<h2 class="vvzhL"><h3 class="cg">Login</h3></h2>
+														<div class="div-input">
+															<label>Username or Email</label>
+															<!--<input type="email" class="d-inp di-f" name="login_email" id="login_email" required />-->
+                                                            <input type="text" class="d-inp di-f" name="login_email" id="login_email" required />
+														</div>
+														<div class="div-input">
+															<label>Password</label>
+															<input type="password" class="d-inp di-l" name="login_password" id="login_password" required />
+														</div>
+														<br>
+														<!--<div class="account-state err">An error ocurred.</div>-->
+														<!--<button class="cbut cart-but account-btn">Login</button>-->
+                                                       	<input type="submit" name="cust_login_btn" class="cbut cart-but account-btn" value="Login" />
+                                                   	</form>
+													</div>
+												</section>
+											</div>
+											<div>
+												<div class="paym-sep flex-division paym-two">
+													<div></div>
+													<div>or</div>
+													<div></div>
+												</div>
+												<section class="grid-box account-box">
+													<div class="grid-box-content">
+                                                    <form action="https://ghkart.com/checkout" name="form" id="form" method="post" onSubmit="javascript: if( document.getElementById('password').value != document.getElementById('repeat_password').value ){ alert('The two Passwords do Not match. Please verify and try again.'); return false; }">
+														<div><h1 class="atitle"><strong>PeecompukGh<mark>.com</mark></strong></h1></div>
+														<h2 class="vvzhL">Sign up to start shopping.</h2>
+														<h2 class="vvzhL"><small>Already a member? <a href="#"><b class="cr td-underline">Login</b></a></small></h2>
+														<div class="div-input">
+															<label>First Name</label>
+															<input type="text" class="d-inp" name="First_Name" id="First_Name" required />
+														</div>
+                                                        <div class="div-input">
+															<label>Last Name</label>
+															<input type="text" class="d-inp" name="Last_Name" id="Last_Name" />
+														</div>
+														<div class="div-input">
+															<label>Email Address</label>
+															<input type="email" class="d-inp di-f" name="Customer_Email" id="Customer_Email" required />
+														</div>
+                                                        <div class="div-input">
+															<label>Phone Number</label>
+															<input type="text" class="d-inp" name="Phone" id="Phone" />
+														</div>
+														<div class="div-input">
+															<label>Username</label>
+															<input type="text" class="d-inp" name="Username" id="Username" required />
+														</div>
+														<div class="div-input">
+															<label>Password</label>
+															<input type="password" class="d-inp tpw" name="password" id="password" required />
+														</div>
+														<div class="div-input">
+															<label>Confirm password</label>
+															<input type="password" class="d-inp di-l tpw" name="repeat_password" id="repeat_password" required />
+														</div>
+														<br/>
+														<div class="txt-al pcur"><b class="toggle-password-btn" data-state="no"><small><i class="icon-eye8"></i> &nbsp; <span>show password</span></small></b></div>
+                                                        <br/>
+														<!--<div class="account-state success">Successfully logged in.</div>-->
+														<!--<button class="cbut cart-but account-btn">Sign Up</button>-->
+                                                        <input type="submit" name="Register_btn" id="Register_btn" class="cbut cart-but account-btn" value="Register" />
+														<h2 class="vvzhL"><small>By signing up you agree to our <b><a class="cg">Terms</a></b>, <b><a class="cg">Data policy</a></b> and <b><a class="cg">Cookie policy</a></b>.</small></h2>
+                                                   	</form>
+													</div>
+													<div class="grid-box-content gb2">
+														<h2 class="vvzhL"><small>Already having an account? <a href="#"><b class="cr td-underline">Login</b></a></small></h2>
+													</div>
+													<div class="grid-box-content gb2">
+														<a href="#"><img alt="" src="img/site/googleplay.png" class="apps"/></a> <a href="#" _sp="m571.l4539" class="thrd"><img alt="" src="img/site/appstore.png" class="apps"/></a>
+													</div>
+												</section>
+											</div>
+										</div>
+									</div>
+                                    
+                                                                        
+                                                                        
+								</div>
+								<div class="flex-division jcc-sbtw np">
+									<!--<div></div>-->
+                                    									<div class="pcur nbtn count-btn" data-cb=".cb-1" data-container-id="#count_0" style="background-color:#F00;color:#FFF;cursor:pointer;" onclick="javascript: window.location='cart.html'; return false;"><i class="icon-arrow-left32"></i> EDIT CART</div>
+									<div class="pcur nbtn count-btn" data-cb=".cb-2" data-container-id="#count_2" id="del_addr">NEXT <i class="icon-arrow-right32"></i></div>
+                                    								</div>
+							</div>
+							<div class="count-container" id="count_2">
+								<div class="flex-division jcc-sbtw">
+									<div><h2>DELIVERY INFORMATION</h2></div>
+									<!--<div class="pcur nbtn count-btn" data-cb=".cb-3" data-container-id="#count_3" onClick="javascript: if( document.getElementById('Select_Address').value=='' && document.getElementById('Select_Address2').value=='' ){ alert('Please you must select and Save a Delivery Address before you choose payment option! Click on Step 2 to do so.'); document.getElementById('del_addr').click(); return false; }" id="pay_opt">NEXT <i class="icon-arrow-right32"></i></div>-->
+                                    <!--<div class="pcur nbtn count-btn" data-cb=".cb-4" data-container-id="#count_4" onClick="javascript: if( document.getElementById('Select_Address').value=='' && document.getElementById('Select_Address2').value=='' ){ alert('Please you must select and Save a Delivery Address before you choose payment option! Click on Step 2 to do so.'); document.getElementById('del_addr').click(); return false; }">NEXT <i class="icon-arrow-right32"></i></div>-->
+								</div>
+								<div>
+                                    
+									                                
+									<div class="">
+                                    
+                                    <span  style="display:none;"  >
+                                    <span class="reg-option-btn2 active cur" data-reg=".address"><!--1. -->Select a delivery address</span>
+                                    <span>&nbsp; <i class="icon-arrow-right32"></i> &nbsp;</span>
+                                    </span>
+                                    
+                                    <span><a class="reg-option-btn2 cur" data-reg=".new-address" id="add-new-address"><!--2. -->Add a new address</a></span>
+                                    <span>&nbsp; <i class="icon-arrow-right32"></i> &nbsp;</span>
+                                    
+                                    </div>
+                                    
+									<div class="reg-cnt2 address active"  style="display:none;"  >
+										<div class="check-form">
+                                        <div id="billing_div_select">
+                                        <form action="#" name="form5" id="form5" method="post" onsubmit="javascript: getstep2('#form5','includes/save_shipping_address_select.html','billing_div_select','','',''); document.getElementById('pay_opt').click(); return false;" >
+											<select name="Select_Address" required id="Select_Address">
+												<!--<option value="">Kwame Duodu</option>
+												<option value="">Kwame Lal</option>-->
+                                                											</select>
+                                            <!--<input type="submit" name="New_Address_btn" id="New_Address_btn" class="cbut cart-but save-btn" value="+ Add" />-->
+                                            <!--<input type="submit" name="Select_Address_btn" id="Select_Address_btn" class="cbut cart-but save-btn" value="Save & Deliver to this Address" />-->
+                                            <input type="submit" name="Select_Address_btn" id="Select_Address_btn" class="cbut cart-but save-btn" value="Click Here To Complete Order" />
+                                    	</form>
+                                        </div>
+										</div>
+									</div>
+                                    
+									<div class="reg-cnt2 new-address">
+										<div class="check-form">
+											<div id="billing_div">
+                                            <form action="#" name="form3" id="form3" method="post" onsubmit="javascript: getstep2('#form3','includes/address.html','billing_div','','',''); document.getElementById('pay_opt').click(); return false; ">
+												<p><small><b>Full Name<!--First Name--><!-- <sup class="cr">&nbsp;&nbsp;&nbsp; *Required</sup>--></b></small></p>
+												<input type="text" name="First_Name" placeholder="Full Name"/>
+												<!--<p><small><b>Last Name</b></small></p>-->
+												<input type="hidden" name="Last_Name" placeholder="Last Name"/>
+												<p><small><b>Phone Number <sup class="cr">&nbsp;&nbsp;&nbsp; *Required</sup></b></small></p>
+												<input type="text" name="Phone" required placeholder="Telephone"/>
+												<!--<p><small><b>Company</b></small></p>-->
+												<input type="hidden" name="Ship_To_Company" placeholder="Company"/>
+												<p><small><b>Email Address <sup class="cr">&nbsp;&nbsp;&nbsp; *Required</sup></b></small></p>
+												<input type="email" name="Email" required placeholder="Email Address"/>
+												<p><small><b>Location<!--Street Address--> <sup class="cr">&nbsp;&nbsp;&nbsp; *Required</sup></b></small></p>
+												<input type="text" name="Ship_To_Street" required placeholder="Street Address"/>
+												<!--<p><small><b>City <sup class="cr">&nbsp;&nbsp;&nbsp; *Required</sup></b></small></p>-->
+												<input type="hidden" name="Ship_To_City" required placeholder="City"/>
+												<!--<p><small><b>Zip / Postal Code</b></small></p>-->
+												<input type="hidden" name="Ship_To_ZIP" placeholder="Code"/>
+												<!--<p><small><b>Country <sup class="cr">&nbsp;&nbsp;&nbsp; *Required</sup></b></small></p>-->
+												<!--<select>
+													<option value="" selected>Select country</option>
+													<option value="1">Ghana</option>
+												</select>-->
+                                                <!--<select name="Ship_To_Country" required>
+															
+                                                </select>-->
+                                                <input type="hidden" name="Ship_To_Country" placeholder="Select country"/>
+												<p><small><b>Region</b></small></p>
+												<!--<select class="country" name="Ship_To_State">
+                                                    <option value="" selected>Select region</option>
+													<option value="1">Ashanti</option>
+													<option value="2">Greater Accra</option>
+													<option value="3">Western</option>
+													<option value="4">Northern</option>
+													<option value="5">Brong Ahafo</option>
+													<option value="6">Volta</option>
+													<option value="7">Central</option>
+													<option value="8">Eastern</option>
+													<option value="9">Upper East</option>
+													<option value="10">Upper West</option>
+												</select>-->
+                                                <select name="Ship_To_State">
+													<option value=""></option><option value="1">Ashanti</option><option value="2">Greater Accra</option><option value="3">Western</option><option value="4">Northern</option><option value="5">Brong Ahafo</option><option value="6">Volta</option><option value="7">Central</option><option value="8">Eastern</option><option value="9">Upper East</option><option value="10">Upper West</option>                                                </select>
+												<!--<p><small><b>Fax</b></small></p>-->
+												<input type="hidden" name="Ship_To_Fax" placeholder="Fax"/>
+												<div class="flex-division jcc-sbtw">
+													<div></div>
+													<div>
+                                                    <!--<button type="submit" class="cbut cart-but save-btn" name="New_Address_btn" id="New_Address_btn"><i class="icon-plus2"></i> Add</button>-->
+                                                    <!--<input type="submit" name="New_Address_btn" id="New_Address_btn" class="cbut cart-but save-btn" value="+ Add" />-->
+                                                    <input type="submit" name="New_Address_btn" id="New_Address_btn" class="cbut cart-but save-btn" value="Click Here To Complete Order" />
+                                                    </div>
+												</div>
+												<br></br>
+											</form>
+                                            
+                                            <div  style="display:none;"  >
+                                                <p><small><b>Select added address</b></small></p>
+                                                <form action="#" name="form4" id="form4" method="post" onsubmit="javascript: getstep2('#form4','includes/save_shipping_address.html','billing_div','','',''); document.getElementById('pay_opt').click(); return false;" >
+                                                    <select name="Select_Address" required id="Select_Address2">
+                                                                                                            </select>
+                                                    <input type="submit" name="Select_Address_btn" id="Select_Address_btn2" class="cbut cart-but save-btn" value="Save & Deliver to this Address" />
+                                                </form>
+                                            </div>
+                                            
+                                            </div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="flex-division jcc-sbtw np">
+									<!--<div class="pcur nbtn count-btn" data-cb=".cb-1" data-container-id="#count_1"><i class="icon-arrow-left32"></i> PREVIOUS</div>-->
+									<!--<div class="pcur nbtn count-btn" data-cb=".cb-3" data-container-id="#count_3" onClick="javascript: if( document.getElementById('Select_Address').value=='' && document.getElementById('Select_Address2').value=='' ){ alert('Please you must select and Save a Delivery Address before you choose payment option! Click on Step 2 to do so.'); document.getElementById('del_addr').click(); return false; }">NEXT <i class="icon-arrow-right32"></i></div>-->
+									
+                                    <!--<div class="pcur nbtn count-btn" data-cb=".cb-4" data-container-id="#count_4" onClick="javascript: if( document.getElementById('Select_Address').value=='' && document.getElementById('Select_Address2').value=='' ){ alert('Please you must select and Save a Delivery Address before you choose payment option! Click on Step 2 to do so.'); document.getElementById('del_addr').click(); return false; }">NEXT <i class="icon-arrow-right32"></i></div>-->
+								</div>
+							</div>
+							<div class="count-container" id="count_3">
+								<div class="flex-division jcc-sbtw">
+									<div><h2>PAYMENT OPTIONS</h2></div>
+									<div class="pcur nbtn count-btn" data-cb=".cb-4" data-container-id="#count_4" onClick="javascript: if( document.getElementById('Select_Address').value=='' && document.getElementById('Select_Address2').value=='' ){ alert('Please you must select and Save a Delivery Address before confirm placing your order! Click on Step 2 to do so.'); document.getElementById('del_addr').click(); return false; }">NEXT <i class="icon-arrow-right32"></i></div>
+								</div>
+								<div>
+									<h4>Choose a payment method<br><small class="tip">Choose between <strong>Cash on Delivery</strong> and other <strong>Options</strong>.</small></h4>
+									<br>
+									<div class="paym">
+										<p>
+                                        <label>
+                                        <img alt="" class="ppc" src="img/payment/cod.jpg"/><br/>
+                                        <input type="radio" name="payment_option" id="cod" checked><b>Cash on Delivery</b>  
+                                        </label>
+                                        </p>
+									</div>
+									<!--<div class="paym-sep flex-division">
+										<div></div>
+										<div>or</div>
+										<div></div>
+									</div>
+                                    <div class="paym">
+										<p onClick="javascript: alert('NOTE: This payment option is Not available at the moment! \nWe will notify you when it is restored. Please choose Cash on Delivery.'); return false;">
+                                        <label>
+                                        <img alt="" class="ppc" src="./img/site/paypal.png"/><br>
+                                        <input type="radio" name="payment_option" id="paypao"><small class="cg"><i class="icon-paypal2"></i> &nbsp; The safer, easier way to pay.</small>
+                                        </label>
+                                        </p>
+									</div>
+                                    <div class="paym-sep flex-division">
+										<div></div>
+										<div>or</div>
+										<div></div>
+									</div>
+									<div class="paym">
+                                        <p onClick="javascript: alert('NOTE: This payment option is Not available at the moment! \nWe will notify you when it is restored. Please choose Cash on Delivery.'); return false;">
+                                        <label>
+                                        <img alt="" class="ppc" src="./img/payment/mtn.png"/><br/>
+                                        <input type="radio" name="payment_option" id="mtn"><b>MTN Mobile Money</b> 
+                                        </label>
+                                        </p>
+									</div>-->
+								</div>
+								<div class="flex-division jcc-sbtw np">
+									<div class="pcur nbtn count-btn" data-cb=".cb-2" data-container-id="#count_2"><i class="icon-arrow-left32"></i> PREVIOUS</div>
+									<div class="pcur nbtn count-btn" data-cb=".cb-4" data-container-id="#count_4" onClick="javascript: if( document.getElementById('Select_Address').value=='' && document.getElementById('Select_Address2').value=='' ){ alert('Please you must select and Save a Delivery Address before confirm placing your order! Click on Step 2 to do so.'); document.getElementById('del_addr').click(); return false; }">NEXT <i class="icon-arrow-right32"></i></div>
+								</div>
+							</div>
+							<div class="count-container" id="count_4">
+								<div class="flex-division jcc-sbtw">
+									<div><h2>ORDER REVIEW</h2></div>
+									<!--<div class="pcur nbtn count-btn" data-cb=".cb-3" data-container-id="#count_3"><i class="icon-arrow-left32"></i> PREVIOUS</div>-->
+									<div class="pcur nbtn count-btn" data-cb=".cb-2" data-container-id="#count_2"><i class="icon-arrow-left32"></i> PREVIOUS</div>
+								</div>
+								<div>
+                                
+                                    <form action="https://ghkart.com/checkout" method="post" onsubmit="javascript: if( document.getElementById('Select_Address').value=='' && document.getElementById('Select_Address2').value=='' ){ alert('Please you must select and Save a Delivery Address before confirm placing your order!'); document.getElementById('del_addr').click(); return false; }">
+                                    
+									<div class="final-container">
+                                    
+                                    
+										<div class="flex-division jcc-sbtw">
+											<div><h4>PRODUCT</h4></div>
+											<div><h4>TOTAL</h4></div>
+										</div>
+                                        
+                                                                                    
+										<div class="flex-division jcc-sbtw">
+											<div><h4>CART SUBTOTAL</h4></div>
+											<div><h4 class="cr">GH&#162; 0</h4></div>
+										</div>
+										<div class="flex-division jcc-sbtw">
+											<div><h4>DELIVERY COST</h4></div>
+                                            											<div><h4 class="cr">GH&#162; 0</h4></div>
+										</div>
+                                        
+                                                                                
+										<div class="flex-division jcc-sbtw">
+											<div><b class="pcur"><small class="cg">use coupon code</small></b><br><br><h4><input type="text" class="c-code" name="coupon_code" id="coupon_code" placeholder="Enter code"></h4><b class="pcur" onclick="javascript: var coupon_code = document.getElementById('coupon_code').value; getstep('includes/view_coupon_details.html','product_card_modal',coupon_code,'',''); document.getElementById('product_card_modal').style.display = 'block';"><small><i class="icon-multitouch"></i> &nbsp; VERIFY COUPON CODE</small></b></div>
+											<div></div>
+										</div>
+                                        <div class="flex-division jcc-sbtw">
+											<div><h4>ORDER TOTAL</h4></div>
+											<div><h4 class="cr">GH&#162; 0</h4></div>
+										</div>
+                                        
+										<div class="flex-division jcc-sbtw">
+											<div></div>
+											<div>
+                                            <button type="submit" name="place_order" id="place_order" class="cbut cart-but order-btn"><i class="icon-checkmark4"></i> PLACE ORDER NOW</button>
+                                            </div>
+										</div>
+									</div>
+                                    
+                                    </form>
+                                    
+								</div>
+								<div class="flex-division jcc-sbtw np">
+									<div class=""></div>
+									<!--<div class="pcur nbtn count-btn" data-cb=".cb-3" data-container-id="#count_3"><i class="icon-arrow-left32"></i> PREVIOUS</div>-->
+									<div class="pcur nbtn count-btn" data-cb=".cb-2" data-container-id="#count_2"><i class="icon-arrow-left32"></i> PREVIOUS</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+                
+                <!-- Footer -->
+<footer class="grid-box page-footer ptb100">
+    <div class="grid-box-content flex-division jcc-sbtw">
+        <div>
+            <ul><li class="gf-li"><h3 class="gf-bttl"><span _sp="m571.l3601" class="gf-bttl thrd">PEECOMPUKGH.COM</span></h3></li><li><div class="sepa"></div></li><li></li><li class="gf-li"><a href="pages.html?p=12" _sp="m571.l2895" class="thrd">About GhKart.com</a></li><li class="gf-li"><a href="signup.html" _sp="m571.l2895" class="thrd">Registration</a></li><li class="gf-li"><a href="login.html" _sp="m571.l4539" class="thrd">Login</a></li><li class="gf-li"><a href="pages.html?p=14" _sp="m571.l2897" class="thrd">Help & Support</a></li></ul>
+            <ul><li class="gf-li"><h3 class="gf-bttl"><a style="cursor:pointer;" onclick="javascript: window.location='pages.html?p=35';" _sp="m571.l3601" class="gf-bttl thrd">Contacts</a></h3></li><li><div class="sepa"></div></li><li class="gf-li"><a style="cursor:pointer;" onclick="javascript: window.location='pages.html?p=35';" _sp="m571.l4539" class="thrd">(+233)(0)260 007 070</a></li><li class="gf-li"><a style="cursor:pointer;" onclick="javascript: window.location='pages.html?p=35';" _sp="m571.l4539" class="thrd">(+233)0302 725 878</a></li><li class="gf-li"><a style="cursor:pointer;" onclick="javascript: window.location='pages.html?p=35';" _sp="m571.l4539" class="thrd">sales@peecompukgh.com</a></li></ul>
+        </div>
+        <div>
+            <ul><li class="gf-li"><h3 class="gf-bttl"><span _sp="m571.l3601" class="gf-bttl thrd">Links</span></h3></li><li><div class="sepa"></div></li><li class="gf-li"><a href="index.html" _sp="m571.l2895" class="thrd">Home</a></li><li class="gf-li"><a href="shop.html" _sp="m571.l4539" class="thrd">Shop</a></li><li class="gf-li"><a href="checkout.html" _sp="m571.l2897" class="thrd">Checkout</a></li><li class="gf-li"><a href="pages.html?p=9" _sp="m571.l2899" class="thrd">Privacy policy</a></li><li class="gf-li"><a href="pages.html?p=10" _sp="m571.l3221" class="thrd">Terms & Conditions</a></li><li class="gf-li"><a href="pages.html?p=11" _sp="m571.l5360" class="thrd">Warranty & Returns</a></li><li class="gf-li"><a href="pages.html?p=12" _sp="m571.l5360" class="thrd">About Ghkart.com</a></li></ul>
+        </div>
+        <div>
+            <ul><li class="gf-li"><h3 class="gf-bttl"><span _sp="m571.l3601" class="gf-bttl thrd">My account</span></h3></li><li><div class="sepa"></div></li><li class="gf-li"><a href="login.html" _sp="m571.l2895" class="thrd">My orders</a></li><li class="gf-li"><a href="login.html" _sp="m571.l4539" class="thrd">My account</a></li><li class="gf-li"><a href="wishlist.html" _sp="m571.l2897" class="thrd">Wishlist</a></li><li class="gf-li"><a href="cart.html" _sp="m571.l2899" class="thrd">Shopping cart</a></li></ul>
+        </div>
+        <div>
+            <ul>
+                <li class="gf-li"><h3 class="gf-bttl"><span _sp="m571.l3601" class="gf-bttl thrd">Newsletter</span></h3></li>
+                <li><div class="sepa"></div></li>
+                <li class="gf-li">
+                    <form>
+                        <p><small>Get all the best deals, sales and offers from the best online shopping store in Ghana. Sign up now!</small></p>
+                        <!--<div class="nletter-container">
+                            <input type="text" placeholder="Email"/>
+                            <button type="button">Subscribe</button>
+                        </div>-->
+                    </form>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul><li class="gf-li"><h3 class="gf-bttl"><span _sp="m571.l3601" class="gf-bttl thrd">Apps & Social</span></h3></li><li><div class="sepa"></div></li><li class="gf-li"><a href="#" _sp="m571.l2895" class="thrd"><img alt="" src="ghkart-admin/views/site_links_pages/ajax_image/site_links_pages_pictures/googleplay_2020_04_07_00_23_11.png" class="apps"/></a></li><li class="gf-li"><a href="#" _sp="m571.l4539" class="thrd"><img alt="" src="ghkart-admin/views/site_links_pages/ajax_image/site_links_pages_pictures/appstore_2020_04_07_00_24_07.png" class="apps"/></a></li></ul>
+            <ul><li class="gf-li"><h3 class="gf-bttl"><a href="#" _sp="m571.l3601" class="gf-bttl thrd"></a></h3></li><li><div class="sepa"></div></li><li class="gf-li"><a href="#" _sp="m571.l2895" class="thrd"><i class="icon-twitter"></i> &nbsp; Twitter</a></li><li class="gf-li"><a href="https://youtube.com/" _sp="m571.l4539" class="thrd"><i class="icon-youtube"></i> &nbsp; Youtube</a></li><li class="gf-li"><a href="#"  _sp="m571.l4539" class="thrd"><i class="icon-facebook"></i> &nbsp; Facebook</a></li></ul>
+        </div>
+    </div>
+    <div class="grid-box-content flex-division jcc-sbtw -crights-">
+        <div class=""><small><strong class="cr">Copyright  &copy;</strong> <span>PeecompukGh.com 2014 - </span> <script>document.write(new Date().getFullYear())</script>  &#0149; All Rights Reserved &#0149;</small></div>
+        <div class="txt-ar"><small><a href="pages.html?p=9">Privacy policy</a> &#0149; <a href="pages.html?p=10">Terms & Conditions</a></small></div>
+    </div>
+</footer>
+<!-- /Footer -->				
+				<!-- Aside menu -->
+<aside class="page-aside-menu">
+    <div class="pam-main closed stopprop" ontouchstart="elemTouchStartY(this,event);" ontouchmove="elemTouchMoveY(this,event);">
+        <header class="aside-account-header">
+            <div>
+                <img alt="" src="img/site/avatar.jpg">
+                <br>
+                <br>
+                <h4 class="aside-acc">
+                    <a href="login.html">Login</a>
+                    &nbsp;| &nbsp;<a href="signup.html">Register</a>
+                </h4>
+            </div>
+        </header>
+        <a class="aside-menu-link bb aside-menu-closer">
+            <div>
+                <i class="icon-cross2"></i>
+            </div>
+            <div>&nbsp;Close</div>
+        </a>
+        <a href="index.html" class="aside-menu-link">
+            <div>
+                <i class="lnr lnr-home"></i>
+            </div>
+            <div>Home</div>
+        </a>
+        <a href="shop.html" class="aside-menu-link">
+            <div>
+                <i class="lnr lnr-gift"></i>
+            </div>
+            <div>Shop</div>
+        </a>
+        <a href="cart.html" class="aside-menu-link">
+            <div>
+                <i class="lnr lnr-cart"></i>
+            </div>
+            <div>Cart</div>
+        </a>
+        <a href="login.html" class="aside-menu-link">
+            <div>
+                <i class="lnr lnr-user"></i>
+            </div>
+            <div>My account</div>
+        </a>
+        <a href="checkout.html" class="aside-menu-link">
+            <div>
+                <i class="lnr lnr-enter"></i>
+            </div>
+            <div>Checkout</div>
+        </a>
+        <a href="login.html" class="aside-menu-link">
+            <div>
+                <i class="lnr lnr-hand"></i>
+            </div>
+            <div>My orders</div>
+        </a>
+        <a href="wishlist.html" class="aside-menu-link">
+            <div>
+                <i class="lnr lnr-heart"></i>
+            </div>
+            <div>Wishlist</div>
+        </a>
+        <div class="aside-tip">
+            <small>Get all the best deals, sales and offers from the best online shopping store in Ghana. Sign up now !</small>
+        </div>
+    </div>
+</aside>
+<!-- /Aside menu -->                
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="icomoon/styles.html"/>
+    <style>
+        :root
+        {
+            --cblue-: #007aff;
+            --fw700-: 700;
+            --fw600-: 600;
+            --fw400-: 400;
+            --dtext-: #808080;
+            --fs80-: 80%;
+            --fs85-: 85%;
+            --fs90-: 90%;
+            --fs95-: 95%;
+            --fs100-: 100%;
+            --cwhite-: #fff;
+        }
+        *
+        {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif, Verdana, 'Helvetica Neue', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+        }
+        h1, h2, h3, h4, h5, h6
+        {
+            padding: 0;
+            margin: 0;
+        }
+        .profile-card-modal,
+        .profile-card-modal > div
+        {
+            width: 100%;
+            height: 100%;
+        }
+        .profile-card-modal
+        {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 20;
+            background-color: rgba(36, 43, 56, .8);
+        }
+        .profile-card-modal > div
+        {
+            justify-content: center;
+            align-items: flex-start;
+            overflow-y: auto;
+        }
+        .profile-card-modal > div > div
+        {
+            width: 70%;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            margin: 100px 0;
+            border-radius: 2.5px;
+            box-shadow: 0 0 1px 1px rgba(0,0,0,.3);
+        }
+        .profile-card-modal > div,
+        .profile-card-modal > div > div,
+        .pcm-flex,
+        .quantity-box
+        {
+            display: flex;
+            display: -webkit-flex;
+        }
+        .pcm-flex
+        {
+            justify-content: space-between;
+        }
+        .pcm-flex > div{
+            width: 45%;
+        }
+        .profile-card-modal > div > div
+        {
+            min-width: 320px;
+        }
+        .profile-card-modal > div > div > div
+        {
+            padding: 20px;
+        }
+        .profile-card-modal > div > div > div:first-child
+        {
+            flex-grow: 1;
+        }
+        .profile-card-modal > div > div > div:nth-child(2)
+        {
+            flex-grow: 1;
+            max-width: 300px;
+            min-width: 300px;
+        }
+        .profile-card-modal > div > div > div:first-child > .pcm-block-item
+        {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .profile-card-modal > div > div > div:first-child > .pcm-block-item.pcm-header > .stars > i.icon-star-full2
+        {
+            color: #e4883a;
+        }
+        .profile-card-modal > div > div > div:first-child > .pcm-block-item.pcm-header > span
+        {
+            margin-right: 10px;
+        }
+        .profile-card-modal > div > div > div:first-child > .pcm-block-item.pcm-header > span:nth-child(2),
+        .profile-card-modal > div > div > div:first-child > .pcm-block-item.pcm-header > span:nth-child(3)
+        {
+            color: var(--cblue-);
+            font-weight: var(--fw600-);
+        }
+        .pcm-title
+        {
+            font-size: 1.25rem;
+        }
+        .pcm-title > h2
+        {
+            font-weight: var(--fw400-);
+        }
+        .pcm-description > p
+        {
+            color: var(--dtext-);
+            font-size: var(--fs90-);
+        }
+        .quantity-box
+        {
+            border: 1px solid #dbdbdb;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .quantity-box > div:nth-child(2)
+        {
+            flex-grow: 1;
+            padding: 0 15px;
+        }
+        .quantity-box > div:nth-child(2) > input,
+        .quantity-box > div:nth-child(2)
+        {
+            text-align: center;
+        }
+        .quantity-box > div:nth-child(2) > input
+        {
+            width: 70px;
+            border-width: 0;
+            background: #f7f7f7;
+            border: 1px solid #dbdbdb;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .quantity-box > div:nth-child(1),
+        .quantity-box > div:nth-child(3)
+        {
+            background: #f7f7f7;
+            padding: 0 5px;
+        }
+        .quantity-box > div:nth-child(1) > i,
+        .quantity-box > div:nth-child(3) > i
+        {
+            vertical-align: -webkit-baseline-middle;
+        }
+        .pcm-mb
+        {
+            margin-bottom: 15px;
+        }
+        .pcm-price
+        {
+            font-size: 2.25rem;
+            color: #000;
+        }
+        .pcm-buttons button
+        {
+            border-width: 0;
+            background: #3e52ff;
+            font-weight: var(--fw700-);
+            color: var(--cwhite-);
+            padding: 10px 15px;
+            border-radius: 2px;
+        }
+        .pcm-buttons button.buy-now-button
+        {
+            background-color: #d8dbff;
+            color: #3e52ff;
+        }
+        .pcm-buttons button.empty-button
+        {
+            background-color: transparent;
+            color: #000;
+        }
+        .clearfix::after
+        {
+            display: table;
+            content: "";
+            clear: both;
+        }
+        .closer
+        {
+            float: right;
+        }
+        .product-card-img
+        {
+            margin-top: 15px;
+            text-align: center;
+        }
+        .product-card-img > img
+        {
+            max-width: 100%;
+        }
+        .cur
+        {
+            cursor: pointer;
+        }
+        @media screen and (max-width: 1200px)
+        {
+            .profile-card-modal > div > div{
+                flex-direction: column-reverse;
+            }
+            .profile-card-modal > div > div > div{
+                width: 100%;
+            }
+            .profile-card-modal > div > div > div:nth-child(2){
+                max-width: 100%;
+                min-width: 100%;
+            }
+        }
+        @media screen and (max-width: 800px){
+            .pcm-flex{
+                flex-direction: column;
+            }
+            .pcm-flex > div{
+                width: 100%;
+            }
+            .pcm-flex > div:first-child{
+                margin-bottom: 20px;
+            }
+            .profile-card-modal > div > div > div{
+                padding: 20px 0;
+            }
+            .pcm-header > span{
+                display: block;
+                margin: 10px 0;
+            }
+            .profile-card-modal > div > div{
+                margin: 0 0;
+                width: 100%;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="profile-card-modal" id="product_card_modal" style="display:none;">
+        <div>
+            <div class="profile-card-content">
+                <div class="profile-card-modal-description">
+                    <div class="pcm-block-item pcm-header">
+                        <!--<span class="stars">
+                            <i class="icon-star-full2"></i>
+                            <i class="icon-star-full2"></i>
+                            <i class="icon-star-full2"></i>
+                            <i class="icon-star-full2"></i>
+                            <i class="icon-star-empty3"></i>
+                        </span>-->
+                    </div>
+                    <div class="pcm-block-item pcm-title">
+                        <!--<h2>Sogevac NEO D 25</h2>-->
+                    </div>
+                    <div class="pcm-block-item pcm-description">
+                        <!--<p>
+                            The new generation of sogevac vacuum pumps,
+                            Tripple-hitting vacuum technology for a cleaner, 
+                            quitter, long-running performance.
+                        </p>-->
+                    </div>
+                    <div class="pcm-block-item pcm-flex">
+                        <!--<div class="pcm-side-flex-item">
+                            <h4 class="pcm-mb">Quantity</h4>
+                            <div class="quantity-box">
+                                <div class="cur quanctrl" data-state="dec">
+                                    <i class="icon-minus2"></i>
+                                </div>
+                                <div>
+                                    <input class="quanval" type="number" value="1" max="1000" min="0"/>
+                                </div>
+                                <div class="cur quanctrl" data-state="inc">
+                                    <i class="icon-plus2"></i>
+                                </div>
+                            </div>
+                        </div>-->
+                        <div>
+                            <!--<h4 class="pcm-mb">Total price</h4>
+                            <h2 class="pcm-price">&#8373;1,119.00</h2>-->
+                        </div>
+                    </div>
+                    <div class="pcm-block-item pcm-buttons">
+                        <!--<button class="add-to-cart-btn cur">Add to cart</button>
+                        <button class="buy-now-button cur">Buy now</button>
+                        <button class="empty-button cur"><i class="icon-heart6"></i></button>-->
+                    </div>
+                </div>
+                <div class="profile-card-modal-photo">
+                    <div class="pcmp-div clearfix closer  cur" id="product_modal_closer" onclick="javascript: closePopUp('product_card_modal');"><i class="icon-cross2"></i></div>
+                    <div class="pcmp-div product-card-img">
+                        <img alt="" src="img/LoadingWait.gif"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        var ProductCardModal = {
+            __init__ : function(){
+                ProductCardModal.__getID("product_modal_closer").addEventListener("click", function(){
+                    ProductCardModal.__getID("product_card_modal").style.display = "none";
+                }, false);
+
+                ProductCardModal.handleQuantity();
+            },
+            handleQuantity: function(){
+                let ctrl = document.getElementsByClassName("quanctrl");
+
+                Array.prototype.slice.call(ctrl).forEach(function(f, i){
+                    f.addEventListener("click", function(){
+                        let state = this.getAttribute("data-state"),
+                            val = Number(document.getElementsByClassName("quanval")[0].value),
+                            num = state === "dec" ? ((val - 1) < 0 ? 0 : (val - 1)) : val + 1;
+                        document.getElementsByClassName("quanval")[0].value = num;
+                    }, false);
+                });
+            },
+            __getID : function(id){
+                return document.getElementById(id);
+            },
+        };
+        ProductCardModal.__init__();
+    </script>
+</body>
+
+<!-- Mirrored from ghkart.com/checkout by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 27 Jan 2025 17:26:49 GMT -->
+</html>				
+				<!-- Alert container -->
+				<section class="alert-container closer-parent">
+					<div>
+						<div>
+							<div>
+								<div class="alert-res success"><small><i class="icon-check"></i> Success!</small></div>
+								<div class="alert-res err"><small><i class="icon-check"></i> Failure!</small></div>
+								<p class="alert-message">You have successfully created your account. Welcome to Ghkart.com. Please spend some time to explore our list of incredible products and devices.</p>
+							</div>
+							<div>
+								<strong class="alert-btn pcur closer-btn"><i class="icon-cross2"></i> cancel</strong>
+								<strong class="alert-btn pcur closer-btn">Got it</strong>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- /Alert container -->
+				
+				<!-- Go to top -->
+				<div class="go-to-top hidden pcur"><i class="icon-arrow-up12"></i> <span>Top</span></div>
+				<!-- /Go to top -->
+				
+				<!-- Live chat -->
+				<!--<div class="live-chat-container htrans hidden">
+					<div class="toggle-chat-btn" data-chat-state="hidden">
+						<div><i class="lnr lnr-user"></i></div>
+						<div><span>Live chat</span> &#0149; <small>Online</small></div>
+						<div class="tcb-cnt"><i class="icon-arrow-up32"></i></div>
+					</div>
+					<div>
+						<div class="clearfix to-message">
+							<span>Hello Mr.</span>
+						</div>
+						<div class="clearfix from-message">
+							<span>Hi, am Kwame Duodu</span>
+						</div>
+						<div class="clearfix to-message">
+							<span>Hello Mr.</span>
+						</div>
+						<div class="clearfix from-message">
+							<span>Hi, am Kwame Duodu</span>
+						</div>
+						<div class="clearfix to-message">
+							<span>Hello Mr.</span>
+						</div>
+						<div class="clearfix from-message">
+							<span>Hi, am Kwame Duodu</span>
+						</div>
+						<div class="clearfix to-message">
+							<span>Hello Mr.</span>
+						</div>
+						<div class="clearfix from-message">
+							<span>Hi, am Kwame Duodu</span>
+						</div>
+						<div class="clearfix to-message">
+							<span>Hello Mr.</span>
+						</div>
+						<div class="clearfix from-message">
+							<span>Hi, am Kwame Duodu</span>
+						</div>
+						<div class="clearfix to-message">
+							<span>Hello Mr.</span>
+						</div>
+						<div class="clearfix from-message">
+							<span>Hi, am Kwame Duodu</span>
+						</div>
+						
+					</div>
+					<div>
+						<div><input type="text" placeholder="Enter message"></div>
+						<div><strong>SEND</strong></div>
+					</div>
+				</div>-->
+				<!-- /Live chat -->
+
+            </div>
+        </div>
+    </body>
+    <script src="js/jquery/jquery-1.9.1.min.js"></script>
+    <script src="js/site/controls.min.js"></script>
+	<script src="js/site/aside-menu.js"></script>
+    <script src="js/site/product.js"></script>
+    <script src="js/site/account.js"></script>
+	<script src="js/site/checkout.js"></script>
+    <script src="js/site/slider.js"></script>
+	<script src="js/site/search.js"></script>
+    <!--<script src="./js/leftmenu.js"></script>-->
+    
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/5c555d527cf662208c93bd56/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+    
+</html>

@@ -1,0 +1,68 @@
+
+                
+<br/><div class="error" style="width:100%;margin:auto;">Failed! Please make sure you fill all required fields, especially, the Address field.</div><br/>  
+  
+<form action="#" name="form3" id="form3" method="post" onsubmit="javascript: getstep2('#form3','includes/address.html','billing_div','','',''); document.getElementById('pay_opt').click(); return false; ">
+    <p><small><b>Full Name<!--First Name--><!-- <sup class="cr">&nbsp;&nbsp;&nbsp; *Required</sup>--></b></small></p>
+    <input type="text" name="First_Name" placeholder="Full Name"/>
+    <!--<p><small><b>Last Name</b></small></p>-->
+    <input type="hidden" name="Last_Name" placeholder="Last Name"/>
+    <p><small><b>Phone Number <sup class="cr">&nbsp;&nbsp;&nbsp; *Required</sup></b></small></p>
+    <input type="text" name="Phone" required placeholder="Telephone"/>
+    <!--<p><small><b>Company</b></small></p>-->
+    <input type="hidden" name="Ship_To_Company" placeholder="Company"/>
+    <p><small><b>Email Address <sup class="cr">&nbsp;&nbsp;&nbsp; *Required</sup></b></small></p>
+    <input type="email" name="Email" required placeholder="Email Address"/>
+    <p><small><b>Location<!--Street Address--> <sup class="cr">&nbsp;&nbsp;&nbsp; *Required</sup></b></small></p>
+    <input type="text" name="Ship_To_Street" required placeholder="Street Address"/>
+    <!--<p><small><b>City <sup class="cr">&nbsp;&nbsp;&nbsp; *Required</sup></b></small></p>-->
+    <input type="hidden" name="Ship_To_City" required placeholder="City"/>
+    <!--<p><small><b>Zip / Postal Code</b></small></p>-->
+    <input type="hidden" name="Ship_To_ZIP" placeholder="Code"/>
+    <!--<p><small><b>Country <sup class="cr">&nbsp;&nbsp;&nbsp; *Required</sup></b></small></p>-->
+    <!--<select>
+        <option value="" selected>Select country</option>
+        <option value="1">Ghana</option>
+    </select>-->
+    <!--<select name="Ship_To_Country" required>
+        		
+    </select>-->
+    <input type="hidden" name="Ship_To_Country" placeholder="Select country"/>
+    <p><small><b>Region</b></small></p>
+    <!--<select class="country" name="Ship_To_State">
+        <option value="" selected>Select region</option>
+        <option value="1">Ashanti</option>
+        <option value="2">Greater Accra</option>
+        <option value="3">Western</option>
+        <option value="4">Northern</option>
+        <option value="5">Brong Ahafo</option>
+        <option value="6">Volta</option>
+        <option value="7">Central</option>
+        <option value="8">Eastern</option>
+        <option value="9">Upper East</option>
+        <option value="10">Upper West</option>
+    </select>-->
+    <select name="Ship_To_State">
+        <option value=""></option><option value="1">Ashanti</option><option value="2">Greater Accra</option><option value="3">Western</option><option value="4">Northern</option><option value="5">Brong Ahafo</option><option value="6">Volta</option><option value="7">Central</option><option value="8">Eastern</option><option value="9">Upper East</option><option value="10">Upper West</option>    </select>
+    <!--<p><small><b>Fax</b></small></p>-->
+    <input type="hidden" name="Ship_To_Fax" placeholder="Fax"/>
+    <div class="flex-division jcc-sbtw">
+        <div></div>
+        <div>
+        <!--<button type="submit" class="cbut cart-but save-btn" name="New_Address_btn" id="New_Address_btn"><i class="icon-plus2"></i> Add</button>-->
+        <!--<input type="submit" name="New_Address_btn" id="New_Address_btn" class="cbut cart-but save-btn" value="+ Add" />-->
+        <input type="submit" name="New_Address_btn" id="New_Address_btn" class="cbut cart-but save-btn" value="Click Here To Complete Order" />
+        </div>
+    </div>
+    <br></br>
+</form>
+
+<br/><div class="error" style="width:100%;margin:auto;">Failed! Please make sure you fill all required fields, especially, the Address field.</div><br/>
+<div  style="display:none;"  >
+    <p><small><b>Select added address</b></small></p>
+    <form action="#" name="form4" id="form4" method="post" onsubmit="javascript: getstep2('#form4','includes/save_shipping_address.html','billing_div','','',''); document.getElementById('pay_opt').click(); return false;" >
+        <select name="Select_Address" required id="Select_Address2">
+                    </select>
+        <input type="submit" name="Select_Address_btn" id="Select_Address_btn2" class="cbut cart-but save-btn" value="Save & Deliver to this Address" />
+    </form>
+</div>

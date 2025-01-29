@@ -1,0 +1,108 @@
+body{
+	background-color: #f7f7f7;
+}
+.account-box > div{
+	max-width: 350px !important;
+	margin: 50px auto !important;
+	background-color: #fff;
+	border: 1px solid #dbdbdb;
+	padding: 25px;
+	border-radius: 5px;
+	text-align: center;
+}
+.account-box > div:nth-child(1),.account-box > div:nth-child(2){
+	margin-bottom: 20px !important;
+}
+.account-box > div.gb2{
+	margin-top: 20px !important;
+    padding: 20px !important;
+}
+.account-box > div > *{
+	margin-bottom: 15px;
+}
+.account-box > div.gb2 > *{
+	margin-bottom: 0px;
+}
+.vvzhL {
+    font-weight: 400;
+    line-height: 20px;
+    font-size: 17px;
+    margin: 0 40px 10px;
+	color: #999;
+    text-align: center;
+}
+.div-input{
+	width: 100%;
+	position: relative;
+	text-align: left;
+	padding: 7px 0px;
+	margin-bottom: 26px !important;
+}
+.div-input > input, .div-input > label{
+	position: absolute;
+	line-height: 25px;
+	padding: 7px 10px;
+	width: 100%;
+}
+.div-input > input{
+	background-color: #fafafa;
+	border: 1px solid #efefef;
+	z-index: 0;
+}
+.di-f{
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.di-l{
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+.div-input > input:focus{
+	border-color: #777;
+	background-color: aliceblue;
+}
+.div-input > label{
+	z-index: 1;
+	font-size: 12px;
+	color: #808080;
+	pointer-events: none;
+	line-height: 30px;
+	padding-left: 12px;
+	transition: all 150ms ease;
+	-webkit-transition: all 150ms ease;
+	-moz-transition: all 150ms ease;
+	-ms-transition: all 150ms ease;
+}
+.div-input > label.active{
+	font-size: 10px;
+    top: 7px;
+    padding-bottom: 5px;
+    line-height: 10px;
+}
+.div-input > label.active + input{
+	padding-top: 15px;
+}
+.div-input.z{
+	z-index: 2;
+	margin-bottom: 28px !important;
+}
+.atitle{
+	font-size: 2.5rem;
+	color: #262626;
+}
+.atitle mark{
+	background: #ff0000;
+	color: #fff;
+	margin-left: 10px;
+	border-radius: 3px;
+	padding: 3px 10px;
+	font-size: 1.5rem;
+	vertical-align: middle;
+}
+.account-btn{
+	width: 100%;
+	padding: 10px;
+}
+.apps{
+	width: 140px;
+}

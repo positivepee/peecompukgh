@@ -1,0 +1,83 @@
+.page-aside-menu{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 90;
+	background: rgba(0,0,0,0.5);
+	display: none;
+}
+.page-aside-menu > div{
+	background-color: #fff;
+	width: 250px;
+	height: 100%;
+	overflow-y: auto;
+	transition: all 350ms ease;
+    -webkit-transition: all 350ms ease;
+    -moz-transition: all 350ms ease;
+    -ms-transition: all 350ms ease;
+	box-shadow: 1px 1px 30px rgba(0,0,0,0.14);
+	position: relative;
+	left: -250px;
+}
+.page-aside-menu > div.opened{
+    left: 0;
+}
+.page-aside-menu .aside-menu-closer{
+    line-height: 35px;
+}
+.page-aside-menu > div > div{
+    padding-bottom: 10px;
+}
+.aside-menu-link{
+	display: flex;
+	display: -webkit-flex;
+	width: 100%;
+	align-items: center;
+}
+.aside-menu-link.bb{
+	border-bottom: 1px solid #dbdbdb;
+}
+.aside-menu-link > div{
+	padding: 20px;
+}
+.aside-menu-link > div:nth-child(2){
+	flex-grow: 1;
+	padding-left: 0;
+}
+.aside-account-header{
+	height: 140px;
+    background: url(../img/site/bba.png) 50% no-repeat #f68b0d;
+    background-size: cover;
+    -ms-flex-negative: 0;
+    display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	justify-content: center;
+}
+.aside-account-header > div{
+	text-align: center;
+	padding: 20px;
+}
+.aside-account-header > div > h4{
+	color: #fff;
+	text-shadow: 0 1px 1px rgba(0,0,0,.14);
+}
+.aside-account-header > div > img{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+.aside-tip{
+	color: #808080;
+	padding: 15px;
+	margin-top: 15px;
+	border-top: 1px solid #dbdbdb;
+	padding-bottom: 20px !important;
+}
+@media screen and (min-width: 950px){
+	.page-aside-menu > div > a:hover{
+		color: #d21e2b;
+	}
+}

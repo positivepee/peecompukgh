@@ -1,0 +1,128 @@
+body{
+	background-color: #f7f7f7;
+}
+.cart-container > div.grid-box-content > div{
+	position: relative;
+	margin: 25px 0;
+}
+.cart-container > div.grid-box-content > div:first-child{
+	width: 25%;
+}
+.cart-container > div.grid-box-content > div:nth-child(2){
+	width: 45%;
+}
+.cart-container > div.grid-box-content > div:nth-child(3){
+	width: 25%;
+}
+.cart-photo-display{
+	width: 100%;
+}
+.cart-photo-display > div:first-child{
+	border: 1px solid #808080;
+	overflow: hidden;
+	border-radius: 3px;
+}
+.cart-photo-display > div:first-child img{
+	width: 100%;
+	display: block;
+	height: 300px;
+}
+.cart-image-slider{
+	width: 100%;
+	align-items: center;
+	height: 80px;
+}
+.cart-image-slider > div:first-child, .cart-image-slider > div:nth-child(3){
+	width: 20%;
+	text-align: center;
+}
+.cart-image-slider > div:first-child i, .cart-image-slider > div:nth-child(3) i{
+	font-size: 200%;
+}
+.cart-image-slider > div:nth-child(2){
+	flex-grow: 1;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.cart-image-slider > div:nth-child(2) img{
+	width: 50px;
+	height: 50px;
+	border: 1px solid #808080;
+	border-radius: 3px;
+}
+.cart-o-detail{
+	background-color: #e5e5e5;
+	padding: 20px;
+	border-top: 1px solid #dbdbdb;
+	margin-top: 10px;
+	width: 100%;
+}
+.cart-o-detail > div.cprice{
+	width: 100%;
+	padding: 5px;
+	align-items: center;
+}
+.cart-o-detail > div.cprice > div:first-child{
+	width: 20%;
+	padding-right: 20px;
+	text-align: right;
+	color: #808080;
+	font-size: .85rem;
+}
+.cart-o-detail > div.cprice > div:nth-child(2){
+	flex-grow: 1;
+}
+.lpr{
+	text-decoration: line-through;
+}
+.quan{
+	padding: 10px 0;
+}
+.quan input{
+	width: 50px;
+	padding: 4px;
+	text-align: center;
+	border-radius: 3px;
+	margin-left: 10px;
+	border: 1px solid #dbdbdb;
+}
+.sh-facebook{
+	color: #0057a3;
+}
+.sh-twitter{
+	color: #1ab2e8;
+}
+.sh-google{
+	color: #f4511e;
+}
+.s-icon{
+	font-size: 1.5rem;
+	margin-right: 10px;
+}
+.img-magnifier-container {
+  position: relative;
+}
+.img-magnifier-glass {
+  position: absolute;
+  border: 3px solid #000;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  z-index: 999;
+  visibility: hidden;
+}
+.img-magnifier-container, .img-magnifier-glass {
+	box-sizing: border-box;
+}
+.cart-image-slider > div:nth-child(2) img{
+	opacity: .6;
+}
+.cart-image-slider > div:nth-child(2) img.active{
+	border-color: red;
+	opacity: 1;
+}
+@media screen and (min-width: 950px){
+	.i-cen:hover .img-magnifier-glass{
+		visibility: visible;
+	}
+}
